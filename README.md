@@ -60,4 +60,7 @@ You have to authenticate at the API. Use your assigned **API Key** for that purp
 
 # Ask a question about the documents
 ./associate "[question]"
+
+# Launch a chat app
+./associate --mode=gradio
 ```
