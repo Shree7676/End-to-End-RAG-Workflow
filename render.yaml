@@ -1,0 +1,8 @@
+services:
+  - type: web
+    name: end-to-end-rag-workflow
+    env: python
+    plan: free
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn src.main:app"
+    autoDeploy: true
