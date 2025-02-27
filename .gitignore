@@ -9,7 +9,6 @@ __pycache__/
 del/
 .requirements_copy.txt
 output_images/
-output_md/
 converted_pdf/
 
 # Distribution / packaging
