@@ -5,7 +5,7 @@ from os import environ
 BASE_URL = 'https://assessment.silvernova.ai/'
 
 # Get API_KEY from env
-API_KEY = "b243befe-6a84-4198-be4c-3e4f3d1e31bd"
+API_KEY = environ.get('API_KEY')
 
 def execute_prompt(message: str):
   url = f'{BASE_URL}prompt'
