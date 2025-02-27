@@ -1,8 +1,9 @@
-import chromadb
+from .chromadb_client import chroma_db
 import logging
 import os
 from src.api import embed_texts
 from typing import List
+import time
 from pathlib import Path
 
 # Set up logging consistent with MarkdownExtractor
@@ -12,11 +13,7 @@ class EmbedService:
     def __init__(self):
         """Initialize the EmbedService."""
         logger.info('EmbedService initialized')
-        # Initialize ChromaDB client and collection
-        self.vector_db_path = "vectorDB"
-        self.chroma_client = chromadb.PersistentClient(path=self.vector_db_path)
-        self.collection = self.chroma_client.get_or_create_collection(name="my_collection")
-        # Set input folder for Markdown files
+        self.collection = chroma_db.collection
         self.input_folder = Path(__file__).parent / "../../output_md"
         os.makedirs(self.input_folder, exist_ok=True)
 
@@ -49,7 +46,7 @@ class EmbedService:
 
     def store_files(self, file_paths: List[str]):
         """Process multiple files and store them in the vector database."""
-        logger.info(f"Starting to process {len(file_paths)} files for embedding")
+        logger.info(f"Starting to process {len(file_paths)} files for embedding at {time.time()}")
         
         documents, metadatas, ids, embeddings = [], [], [], []
         

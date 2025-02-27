@@ -50,14 +50,14 @@ You have to authenticate at the API. Use your assigned **API Key** for that purp
 ## Run
 ```bash
 # Get the file's content as markdown
-python -m src.main --mode get-markdown
+./associate --mode=get-markdown
 
 # Index the documents
-python -m src.main --mode index-files
+./associate --mode=index-files
 
 # Search for documents based on similarity
-python -m src.main --mode search "Q1-Q4 Projects"
+./associate --mode=search "[question]"
 
 # Ask a question about the documents
-python -m src.main --mode ask-question "What’s the Loan deadline?"
+./associate "[question]"
 ```

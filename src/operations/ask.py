@@ -1,5 +1,5 @@
 import logging
-import chromadb
+from .chromadb_client import chroma_db
 from .search import SearchEngine  # Relative import within src/operations/
 from src.api import execute_prompt
 
@@ -8,17 +8,8 @@ logger = logging.getLogger('llm-asker')
 
 class LLMAsker:
     def __init__(self):
-        """Initialize the LLMAsker."""
         logger.info('LLMAsker initialized')
-        # Initialize ChromaDB client and collection
-        self.vector_db_path = "vectorDB"
-        self.chroma_client = chromadb.PersistentClient(path=self.vector_db_path)
-        try:
-            self.collection = self.chroma_client.get_collection(name="my_collection")
-        except Exception as e:
-            logger.error(f"Failed to connect to collection 'my_collection': {str(e)}")
-            raise
-        # Initialize SearchEngine instance
+        self.collection = chroma_db.collection
         self.search_engine = SearchEngine()
 
     def build_context(self, query: str, top_k: int = 3) -> str:
@@ -67,7 +58,8 @@ class LLMAsker:
             Answer:
             """
             # Execute the prompt
-            answer = execute_prompt(prompt)
+            api_response = execute_prompt(prompt)
+            answer = api_response.get('response', 'Error: No response from API').replace('<br>', '\n')
             logger.info("LLM response generated successfully")
             return answer
         except Exception as e:

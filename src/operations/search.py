@@ -1,6 +1,6 @@
 import logging
 from typing import List
-import chromadb
+from .chromadb_client import chroma_db
 from src.api import embed_texts
 
 # Set up logging consistent with previous classes
@@ -10,10 +10,7 @@ class SearchEngine:
     def __init__(self):
         """Initialize the SearchEngine."""
         logger.info('SearchEngine initialized')
-        # Initialize ChromaDB client and collection
-        self.vector_db_path = "vectorDB"
-        self.chroma_client = chromadb.PersistentClient(path=self.vector_db_path)
-        self.collection = self.chroma_client.get_collection(name="my_collection")
+        self.collection = chroma_db.collection
 
     def embed_query(self, query: str) -> List[float]:
         """Generate an embedding for the search query."""

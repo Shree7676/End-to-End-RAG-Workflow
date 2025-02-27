@@ -2,6 +2,7 @@ import logging
 import argparse
 import os
 from pathlib import Path
+import gradio as gr
 from src.operations.extract import MarkdownExtractor
 from src.operations.embed import EmbedService
 from src.operations.search import SearchEngine
@@ -26,7 +27,7 @@ class App:
     def run(self):
         """Parse arguments and run the selected mode."""
         parser = argparse.ArgumentParser(description='Ask questions about the files of a case.')
-        parser.add_argument('--mode', choices=['index-files', 'ask-question', 'search', 'get-markdown'], 
+        parser.add_argument('--mode', choices=['index-files', 'ask-question', 'search', 'get-markdown', 'gradio'], 
                            default='ask-question', help='The mode of the application.')
         parser.add_argument('question', nargs='?', type=str, 
                            help='The question or query for ask-question or search mode.')
@@ -47,6 +48,8 @@ class App:
             self.search(query)
         elif args.mode == 'get-markdown':
             self.get_markdown()
+        elif args.mode == 'gradio':
+            self.launch_gradio()
 
     def get_markdown(self):
         """Convert all files in documents/ to Markdown."""
@@ -94,6 +97,18 @@ class App:
         response = self.asker.ask(question)
         print("LLM Answer:", response)
         logger.info("Question answered successfully")
+
+    def launch_gradio(self):
+        logger.info("Launching Gradio interface")
+        iface = gr.Interface(
+            fn=self.asker.ask,
+            inputs=gr.Textbox(label="Ask a question about the documents", placeholder="e.g., What are the Q1-Q4 project results?"),
+            outputs=gr.Textbox(label="Answer"),
+            title="Document Q&A",
+            description="Ask questions about indexed documents and get answers from an LLM.",
+            allow_flagging="never"
+        )
+        iface.launch(share=True, server_name="0.0.0.0", server_port=7860)
 
 # Entry point
 if __name__ == "__main__":
