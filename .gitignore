@@ -7,6 +7,7 @@ __pycache__/
 *.so
 
 del/
+.requirements_copy.txt
 
 # Distribution / packaging
 .Python
