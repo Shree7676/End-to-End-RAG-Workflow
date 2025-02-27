@@ -14,9 +14,9 @@ Try to answer as thruthfully as possible.
 
 | Name                     | xxxxx        |
 |--------------------------|--------------|
-| E-Mail:                  | xxxxx@xxx.xx |
-| Approx. Time To Complete | xx hours     |
-| My github:               | xxxxxxx      |
+| E-Mail:                  | shreekantnandiyawar@gmail.com |
+| Approx. Time To Complete | 8 hours     |
+| My github:               | [shree7676](https://github.com/shree7676)      |
 
 ## The task
 
@@ -50,14 +50,14 @@ You have to authenticate at the API. Use your assigned **API Key** for that purp
 ## Run
 ```bash
 # Get the file's content as markdown
-./associate --mode=get-markdown
+python -m src.main --mode get-markdown
 
 # Index the documents
-./associate --mode=index-files
+python -m src.main --mode index-files
 
 # Search for documents based on similarity
-./associate --mode=search "[question]"
+python -m src.main --mode search "Q1-Q4 Projects"
 
 # Ask a question about the documents
-./associate "[question]"
+python -m src.main --mode ask-question "What’s the Loan deadline?"
 ```
