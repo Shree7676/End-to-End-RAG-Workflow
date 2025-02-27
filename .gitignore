@@ -6,6 +6,8 @@ __pycache__/
 # C extensions
 *.so
 
+del/
+
 # Distribution / packaging
 .Python
 build/
@@ -97,6 +99,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+silvernova/
 
 # Spyder project settings
 .spyderproject

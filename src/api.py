@@ -5,7 +5,7 @@ from os import environ
 BASE_URL = 'https://assessment.silvernova.ai/'
 
 # Get API_KEY from env
-API_KEY = environ.get('API_KEY')
+API_KEY = "b243befe-6a84-4198-be4c-3e4f3d1e31bd"
 
 def execute_prompt(message: str):
   url = f'{BASE_URL}prompt'
@@ -30,4 +30,5 @@ def embed_texts(texts: List[str], input_type: Literal['document', 'query']) -> L
     'input_type': input_type
   }, headers=headers)
   response.raise_for_status()
-  return response.json()
+  result = response.json()
+  return result['embeddings']
