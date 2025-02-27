@@ -16,7 +16,7 @@ Try to answer as thruthfully as possible.
 |--------------------------|--------------|
 | E-Mail:                  | shreekantnandiyawar@gmail.com |
 | Approx. Time To Complete | 8 hours     |
-| My github:               | shree7676      |
+| My github:               | [shree7676](https://github.com/shree7676)      |
 
 ## The task
 
