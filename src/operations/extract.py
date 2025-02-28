@@ -119,7 +119,6 @@ class MarkdownExtractor:
 
 # Example usage
 if __name__ == "__main__":
-    # Configure logging to see output
     logging.basicConfig(level=logging.INFO)
 
     extractor = MarkdownExtractor()

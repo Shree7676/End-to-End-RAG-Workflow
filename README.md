@@ -1,21 +1,9 @@
-# Silvernova Assessment Task
-
-Thank you for applying for a job at **silvernova**. We are excited to talk to you about working together.
-
-We at silvernova think that creativity and new solutions when developing are hindered by a time constraint. Coding interviews can thus misrepresent your true skills. This is why we are using an asynchronous asseesment task concept. This task will help us understand how you go about solving problems without having to breathe down your neck. 😉
-
-When working on this task either
-  * fork this repo and submit a link to your submission via mail
-  * clone the repo and send a zipped version via mail
-
-## Your info (please fill out)
-
-Try to answer as thruthfully as possible.
+## My info
 
 | Name                     | xxxxx        |
 |--------------------------|--------------|
 | E-Mail:                  | shreekantnandiyawar@gmail.com |
-| Approx. Time To Complete | 8 hours     |
+| Approx. Time To Complete | 8+ hours     |
 | My github:               | [shree7676](https://github.com/shree7676)      |
 
 ## The task
@@ -61,6 +49,11 @@ You have to authenticate at the API. Use your assigned **API Key** for that purp
 # Ask a question about the documents
 ./associate "[question]"
 
-# Launch a chat app
-./associate --mode=gradio
+# To run the web application
+python -m src.app
+```
+
+## To Run the test cases 
+```bash
+python -m pytest tests/ -v
 ```

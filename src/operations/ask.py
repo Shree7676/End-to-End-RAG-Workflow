@@ -1,9 +1,9 @@
 import logging
 from .chromadb_client import chroma_db
-from .search import SearchEngine  # Relative import within src/operations/
+from .search import SearchEngine  
 from src.api import execute_prompt
+import re
 
-# Set up logging
 logger = logging.getLogger('llm-asker')
 
 class LLMAsker:
@@ -39,7 +39,7 @@ class LLMAsker:
             logger.error(f"Failed to build context: {str(e)}")
             return f"Error retrieving documents: {str(e)}"
 
-    def ask(self, query: str, top_k: int = 3) -> str:
+    def ask(self, query: str, top_k: int = 3) -> list[str]:
         """Query the LLM with the provided query and retrieved document context."""
         logger.info(f"Asking LLM with query: '{query}'")
         try:
@@ -49,7 +49,8 @@ class LLMAsker:
             # Prepare the prompt
             prompt = f"""
             You are an assistant. Use the following context to answer the question accurately and concisely.
-            answer in English
+            Context may be in any language, but your answer MUST be in the same language as the question.
+            I repeat this is very important you should response in same language as Question.
             
             Context:
             {context}
@@ -59,12 +60,14 @@ class LLMAsker:
             """
             # Execute the prompt
             api_response = execute_prompt(prompt)
-            answer = api_response.get('response', 'Error: No response from API').replace('<br>', '\n')
+            answer = api_response.get('response', 'Error: No response from API')
             logger.info("LLM response generated successfully")
-            return answer
+            return [answer,context]
         except Exception as e:
             logger.error(f"Failed to query LLM: {str(e)}")
             return f"Error processing query: {str(e)}"
+        
+    
 
 # Example usage
 if __name__ == "__main__":
@@ -74,5 +77,5 @@ if __name__ == "__main__":
     asker = LLMAsker()
     
     query = "Q1-Q4 Projects result"
-    answer = asker.ask(query)
+    answer,context = asker.ask(query)
     logger.info(f"LLM Answer: {answer}")

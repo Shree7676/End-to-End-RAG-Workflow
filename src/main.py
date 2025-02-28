@@ -1,6 +1,7 @@
 import logging
 import argparse
 import os
+import re
 from pathlib import Path
 import gradio as gr
 from src.operations.extract import MarkdownExtractor
@@ -21,8 +22,8 @@ class App:
         self.embedder = EmbedService()
         self.searcher = SearchEngine()
         self.asker = LLMAsker()
-        self.input_dir = Path("documents")  # Where mixed files live
-        self.md_dir = Path("output_md")     # Where Markdown files go
+        self.input_dir = Path("documents")  
+        self.md_dir = Path("output_md")     
 
     def run(self):
         """Parse arguments and run the selected mode."""
@@ -94,21 +95,9 @@ class App:
     def ask_question(self, question: str):
         """Ask a question using the LLM with context from indexed files."""
         logger.info(f"Asking question: '{question}'")
-        response = self.asker.ask(question)
-        print("LLM Answer:", response)
+        response,context = self.asker.ask(question)
+        print("LLM Answer: /n", response.replace('<br>', '\n'))
         logger.info("Question answered successfully")
-
-    def launch_gradio(self):
-        logger.info("Launching Gradio interface")
-        iface = gr.Interface(
-            fn=self.asker.ask,
-            inputs=gr.Textbox(label="Ask a question about the documents", placeholder="e.g., What are the Q1-Q4 project results?"),
-            outputs=gr.Textbox(label="Answer"),
-            title="Document Q&A",
-            description="Ask questions about indexed documents and get answers from an LLM.",
-            allow_flagging="never"
-        )
-        iface.launch(share=True, server_name="0.0.0.0", server_port=7860)
 
 # Entry point
 if __name__ == "__main__":

@@ -14,5 +14,4 @@ Pillow
 docling
 extract-msg
 Flask
-gunicorn
 pytest

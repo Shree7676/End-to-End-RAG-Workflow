@@ -9,7 +9,6 @@ class ChromaDBClient:
     def __new__(cls):
         if cls._instance is None:
             cls._instance = super(ChromaDBClient, cls).__new__(cls)
-            # Initialize ChromaDB client and collection once
             cls._vector_db_path = "vectorDB"
             cls._client = chromadb.PersistentClient(path=cls._vector_db_path)
             try:

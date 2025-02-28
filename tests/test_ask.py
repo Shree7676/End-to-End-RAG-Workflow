@@ -17,7 +17,7 @@ def test_ask_successful_response(asker):
     with patch('src.operations.ask.execute_prompt') as mock_prompt:
         mock_prompt.return_value = {'response': "Answer text"}
         result = asker.ask("test query")
-        assert result == "Answer text"
+        assert result == ["Answer text", "Document 'file1.md':\ncontent1"]  
         mock_prompt.assert_called_once()
 
 def test_ask_api_error(asker, caplog):

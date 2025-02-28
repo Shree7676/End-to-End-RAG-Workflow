@@ -1,28 +1,65 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Document Q&A App</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot UI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
 </head>
 <body>
-    <h1>Document Q&A App</h1>
-    <form method="POST">
-        <label for="mode">Mode:</label>
-        <select name="mode" id="mode">
-            <option value="get-markdown">Get Markdown</option>
-            <option value="index-files">Index Files</option>
-            <option value="search">Search</option>
-            <option value="ask-question">Ask Question</option>
-        </select><br><br>
+
+<div class="container">
+    <!-- Main content section with 3 boxes -->
+    <div class="main-content">
+        <div class="box" id="validation-results">
+            <h3>Files</h3>
+            <div id="validation-box">
+                {% for file in files %}
+                        <li>{{file}}</li>
+                    {% endfor %}
+            </div>
+            <div class="upload-container">
+                <!-- <form id="uploadForm" enctype="multipart/form-data"> -->
+                    <!-- <input type="file" name="file" id="fileInput" accept=".pdf,.docx,.xlsx,.msg"> -->
+                    <form action="">
+                        <input type="file" name="" id="">
+                    <button type="submit">Upload</button>
+                </form>
+                <div id="uploadStatus"></div>
+                </div>
+        </div>
         
-        <label for="query">Query/Question:</label>
-        <input type="text" name="query" id="query"><br><br>
-        
-        <input type="submit" value="Run">
+        <div class="box" id="chat-area">
+            <h3>Chat Area</h3>
+            <div id="chatbox">
+                <br><br>
+                {% if user_messages %}
+                    {% for message, sender in user_messages %}
+                        <div class="{{ sender }}-message"
+                             style="{% if sender == 'bot' %}background-color: lightblue;{% else %}font-weight: bold;{% endif %}">
+                            {{ message | safe }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+        <div class="box" id="retrieved-data">
+            <h3>Retrieved Data</h3>
+            <div id="data-box">
+                <br><br>
+                {{retrived_data }}
+            </div>
+        </div>
+    </div>
+    <!-- Chat Input Box (Fixed at the bottom) -->
+    <form method="POST" class="chat-box" action="/chat">
+        <div id="user-message-area"></div>
+        <div class="input-box">
+            <input type="text" name="question" id="user-input" placeholder="Type a message..." required />
+            <button type="submit">Send</button>
+        </div>
     </form>
-    
-    {% if result %}
-        <h2>Result:</h2>
-        <pre>{{ result }}</pre>
-    {% endif %}
+
 </body>
 </html>
